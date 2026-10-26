@@ -1,0 +1,12 @@
+# Build context: a prepared directory containing wheelhouse/ (including this component).
+ARG PYTHON_BASE=python:3.12-slim
+FROM ${PYTHON_BASE}
+WORKDIR /app
+COPY wheelhouse /wheelhouse
+RUN pip install --no-index --find-links=/wheelhouse "easyaiot-face-analysis-agent[persistence]==0.2.0" gunicorn \
+    && useradd --create-home agent \
+    && mkdir /state && chown agent:agent /state
+USER agent
+ENV AGENT_CHECKPOINT_DB=/state/checkpoints.sqlite3
+EXPOSE 8765
+CMD ["gunicorn", "--workers", "1", "--timeout", "600", "--bind", "0.0.0.0:8765", "easyaiot_face_agent.api.flask_app:create_app()"]

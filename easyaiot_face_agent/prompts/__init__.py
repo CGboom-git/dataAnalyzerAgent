@@ -1,0 +1,1 @@
+"""Versioned trusted role prompts."""

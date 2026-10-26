@@ -1,0 +1,12 @@
+services:
+  agent:
+    build: .
+    environment:
+      AGENT_REQUIRE_TOOL_APPROVAL: "true"
+      AGENT_CHECKPOINT_DB: /state/checkpoints.sqlite3
+    volumes:
+      - agent_state:/state
+    ports:
+      - "127.0.0.1:8765:8765"
+volumes:
+  agent_state:

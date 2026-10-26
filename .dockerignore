@@ -1,0 +1,13 @@
+.git
+.venv
+.local
+artifacts
+dist
+build
+tests
+*.egg-info
+__pycache__
+.env
+.env.*
+*.sqlite*
+*.db

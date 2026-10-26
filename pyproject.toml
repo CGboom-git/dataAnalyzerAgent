@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "easyaiot-face-analysis-agent"
+version = "0.2.0"
+description = "LangGraph face-analysis Agent component for the EasyAIoT platform"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "Flask==2.3.2",
+    "Werkzeug>=2.3.3,<3",
+    "langgraph>=1.0,<2.0",
+    "requests==2.31.0",
+    "pandas>=2.2,<3.0",
+    "jsonschema>=4.23,<5",
+]
+
+[project.optional-dependencies]
+persistence = ["langgraph-checkpoint-sqlite>=3,<4"]
+platform-probe = ["Flask-SQLAlchemy==3.0.5", "psycopg[binary]>=3.2,<4", "minio==7.2.0"]
+dev = ["pytest>=8,<10", "build>=1.2,<2"]
+
+[project.scripts]
+easyaiot-face-agent = "easyaiot_face_agent.api.server:main"
+
+[tool.setuptools.packages.find]
+include = ["easyaiot_face_agent*"]
+
+[tool.setuptools.package-data]
+easyaiot_face_agent = ["data/*.json", "skills/prompts/*.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
