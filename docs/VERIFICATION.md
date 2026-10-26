@@ -26,6 +26,7 @@
 | 实际 VIDEO 与 PostgreSQL | WSL 平台原 Blueprint + 已停平台库的隔离快照 | overview/activity 与直接聚合一致，人员/人脸均为 0 |
 | 实际模型与 VIDEO 链路 | Qwen → 审批恢复 → VIDEO → PG → 审核报告 | completed，52.71 秒，仅空数据 |
 | 只读宿主边界 | 无令牌、人员/图片禁用、数据库只读事务 | 401/403，数据库拒绝 UPDATE；非生产租户授权证明 |
+| GitHub Actions | Python 3.11/3.12，提交 30f44d2 | 两个矩阵任务均 success，见下方运行链接 |
 
 测试覆盖：字段映射、工具与参数拒绝、零历史配置、统计复算、租户/用户会话隔离、
 审批摘要与重复提交、SQLite 运行重建、历史分叉、轮数边界、失败状态与审计、
@@ -33,7 +34,9 @@
 MCP Schema/同名工具/错误/远程引用限制、API 响应契约和宿主身份。
 
 wheel 验证使用临时安装目录并断言导入位置，不从源码目录加载组件；第三方依赖复用已验证环境，
-不是另一套完全独立的依赖环境。Python 3.11 的 GitHub Actions 矩阵已配置，尚未在远端运行。
+不是另一套完全独立的依赖环境。GitHub Actions 的 Python 3.11/3.12 矩阵已在远端成功运行，
+包括依赖检查、48 项测试、CLI 启动、构建、wheel 和合成演示。
+运行记录：[首个源码提交的 CI](https://github.com/CGboom-git/dataAnalyzerAgent/actions/runs/40285052435)。
 
 ## 可复算结果
 
